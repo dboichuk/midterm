@@ -3,6 +3,8 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+//Start a session
+session_start();
 
 //Require the autoload file
 require_once("vendor/autoload.php");
@@ -18,10 +20,17 @@ $f3->route('GET /', function () {
 
 });
 
-$f3->route('GET /survey', function ($f3) {
+$f3->route('GET|POST /survey', function ($f3) {
 
     $f3->set('options',array("This midterm is easy", "I like midterms",
         "Today is Monday"));
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $_SESSION['name']=$_POST['name'];
+        $_SESSION['options']=$_POST['options'];
+
+        $f3->reroute('summary');
+    }
 
 
 
@@ -31,6 +40,10 @@ $f3->route('GET /survey', function ($f3) {
 
 });
 
+$f3->route('GET|POST /summary', function ($f3) {
+    $view = new Template();
+    echo $view->render('views/summary.html');
+});
 
 
 
