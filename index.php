@@ -26,10 +26,19 @@ $f3->route('GET|POST /survey', function ($f3) {
         "Today is Monday"));
 
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $_SESSION['name']=$_POST['name'];
-        $_SESSION['options']=$_POST['options'];
+        if(empty($_POST['name'])){
+            $f3->set('errors["name"]',"Please provide your name!");
+        }
+        if(empty($_POST['options'])){
+            $f3->set('errors["options"]',"Please select a checkbox!");
+        }
 
-        $f3->reroute('summary');
+        if(empty($f3->get('errors'))) {
+            $_SESSION['name'] = $_POST['name'];
+            $_SESSION['options'] = $_POST['options'];
+
+            $f3->reroute('summary');
+        }
     }
 
 
