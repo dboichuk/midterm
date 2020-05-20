@@ -1,0 +1,12 @@
+{
+  "name": "dboichuk/328/midterm",
+  "authors": [
+    {
+      "name": "Dmytro Boichuk",
+      "email": "dboichuk@mail.greenriver.edu"
+    }
+  ],
+  "require": {
+    "bcosca/fatfree-core": "dev-master"
+  }
+}
