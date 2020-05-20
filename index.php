@@ -21,11 +21,15 @@ $f3->route('GET /', function () {
 });
 
 $f3->route('GET|POST /survey', function ($f3) {
-
+    $array=array("empty","empty");
     $f3->set('options',array("This midterm is easy", "I like midterms",
         "Today is Monday"));
 
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+
+
+
         if(empty($_POST['name'])){
             $f3->set('errors["name"]',"Please provide your name!");
         }
@@ -42,7 +46,12 @@ $f3->route('GET|POST /survey', function ($f3) {
     }
 
 
+    $f3->set('name',$_POST['name']);
+    if(!empty($_POST['options'])) {
+        $array=$_POST['options'];
 
+    }
+    $f3->set('selectedOptions', $array);
     $view = new Template();
     echo $view->render('views/survey.html');
 

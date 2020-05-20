@@ -13,7 +13,7 @@
     <form method="post" action="#">
         <h1>Midterm Survey</h1>
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name">
+        <input type="text" id="name" name="name" value="{{@name}}">
         <span class="err">
                         <check if="{{ isset(@errors['name']) }}">
                             {{ @errors['name'] }}
@@ -30,7 +30,8 @@
         <repeat group="{{ @options }}" value="{{ @option }}">
             <label><input type="checkbox"
                           name="options[]"
-                          value="{{ @option }}"> {{ @option }}</label><br>
+                          value="{{ @option }}"
+                <check if="{{in_array(@option,@selectedOptions)}}">checked</check>  > {{ @option }}</label><br>
         </repeat>
         <p></p>
 
